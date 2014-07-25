@@ -1,0 +1,22 @@
+﻿@inherits UmbracoTemplatePage
+@{
+    
+    var aNossaClinica = Model.Content.AncestorsOrSelf(1).First().Children().Where(x => x.DocumentTypeAlias == "AboutUs").First(); 
+}
+
+
+<section class="container">
+
+    <div class="row well">
+        <article class="col-lg-8 col-md-8">
+            <h4>Serviços completos de cuidados dentários</h4>
+            <p>Com um corpo de dentistas competentes e atualizados nas mais recentes técnicas!</p>
+        </article>
+        <div class="col-lg-4 col-md-4">
+            <a class="btn btn-lg btn-primary pull-right" href="@aNossaClinica.Url">Conheça a nossa clinica</a>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</section>
+<!-- /.container -->

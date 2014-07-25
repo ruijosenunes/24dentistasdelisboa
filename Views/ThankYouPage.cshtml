@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "umbLayout.cshtml";
+
+   // var HomePage = CurrentPage.AncestorsOrSelf(1).First();
+
+    int id;
+    
+    int.TryParse(HttpContext.Current.Request.QueryString["id"], out id);
+
+    var PreviousPage = library.NiceUrl(id); 
+   
+}
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>@Umbraco.Field("mainTitle")</h1>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Muito obrigado!</h1>
+                <h2>@CurrentPage.GetPropertyValue("thankYouText")</h2>
+                <p><a href="@PreviousPage" class="btn btn-primary btn-lg" role="button">Voltar</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+  

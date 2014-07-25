@@ -1,0 +1,39 @@
+﻿@model _24dentistasdelisboa.Models.ContactFormViewModel
+
+@using (Html.BeginUmbracoForm<_24dentistasdelisboa.Controllers.ContactFormSurfaceController>("HandleFormSubmit"))
+{
+
+        <div class="row">
+            <div class="form-group col-lg-4">
+                @*@Html.Label("Nome")*@
+                @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control", @placeholder = "Nome" })
+                @Html.ValidationMessageFor(m => m.ContactName)
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-lg-4">
+                @*@Html.Label("Email")*@
+                @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control", @placeholder = "youremail@email.com" })
+                @Html.ValidationMessageFor(m => m.ContactEmail)
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-lg-4">
+                @*@Html.Label("Número de telefone")*@
+                @Html.TextBoxFor(m => m.ContactPhoneNumber, new { @class = "form-control", @placeholder = "Telefone"})
+                @Html.ValidationMessageFor(m => m.ContactPhoneNumber)
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-lg-12">
+                @*@Html.Label("Mensagem")*@
+                @Html.TextAreaFor(m => m.ContactMessage, new { @class = "form_control", @placeholder = "Deixe-nos a sua mensagem e entraremos em contact", @cols = "75" })
+                @Html.ValidationMessageFor(m => m.ContactMessage)
+            </div>
+            @Html.HiddenFor(m => m.ReturnPageId)
+            @Html.HiddenFor(m => m.ThankYouPageId)
+            <div class="form-group col-lg-12">
+                <input type="hidden" name="save" value="contact">
+                <button type="submit" class="btn btn-primary">Submeter</button>
+            </div>
+        </div>
+}
+
+

@@ -1,0 +1,26 @@
+﻿@inherits UmbracoTemplatePage
+@{
+    // Model.Content is the current page that we're on
+    // AncestorsOrSelf is all of the ancestors this page has in the tree
+    // (1) means: go up to level 1 and stop looking for more ancestors when you get there
+    // First() gets the first ancestor found (the home page, on level 1)
+    var homePage = CurrentPage.AncestorsOrSelf(1).First();
+}
+
+<!-- Contact -->
+<section>
+    <ul class="list-unstyled list-inline list-social-icons">
+        <li class="tooltip-social facebook-link">
+            <a href="@homePage.FacebookLink" data-toggle=" tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a>
+        </li>
+        <li class="tooltip-social linkedin-link">
+            <a href="@homePage.LinkedinLink" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa fa-linkedin-square fa-2x"></i></a>
+        </li>
+        <li class="tooltip-social twitter-link">
+            <a href="@homePage.TwitterLink" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter-square fa-2x"></i></a>
+        </li>
+        <li class="tooltip-social google-plus-link">
+            <a href="@homePage.GoogleLink" data-toggle="tooltip" data-placement="top" title="Google+"><i class="fa fa-google-plus-square fa-2x"></i></a>
+        </li>
+    </ul>
+</section>

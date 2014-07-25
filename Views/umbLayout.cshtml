@@ -1,0 +1,65 @@
+﻿@inherits UmbracoTemplatePage
+@{
+    Layout = null;
+}<!DOCTYPE html>
+<!--
+    TXT 2.0 by HTML5 UP
+    html5up.net | twitter.com/n33co
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>@Umbraco.Field("title", altFieldAlias: "pageName") | @Umbraco.Field("siteName", recursive: true)</title>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="@Umbraco.Field("metaDescription")" />
+    <meta name="author" content="@CurrentPage.CreatorName"/>
+    <meta name="keywords" content="@Umbraco.Field("metaKeywords")" />
+    <!-- JavaScript -->
+
+    <script src="~/scripts/jquery-2.1.1.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/modern-business.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="~/scripts/jquery.validate.min.js"></script>
+    <script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(function () {
+            $.getJSON('/umbraco/api/GetListOfCommentsApi/GetListOfCommentsForPage', function (data) {
+                console.log('success');
+                $.each(data, function (i, data) {
+                    $('#CommentsList').append('<h3>' + data.Name + ' ' + '<small>' + data.DateAndTime + '</small>' + '</h3>'+
+                       '<p>' + data.Comment + '</p>');
+                });
+            }).error(function () {
+                console.log('error');
+            });
+        });
+    </script>
+
+ 
+       <!-- Bootstrap core CSS -->
+
+    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="/css/modern-business.css" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body class="homepage">
+	
+    @{ Html.RenderPartial("TopNavigation"); }
+
+    @RenderBody()
+    
+	@Umbraco.RenderMacro("ContactButtons")
+  
+    @{ Html.RenderPartial("umbFooter"); }
+    
+    <!-- /.container -->
+
+</body>
+</html>

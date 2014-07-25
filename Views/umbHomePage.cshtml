@@ -1,0 +1,23 @@
+﻿@inherits UmbracoTemplatePage
+@{
+    Layout = "umbLayout.cshtml";
+}
+@{ Html.RenderPartial("umbHomepageBanner"); }
+
+@{ Html.RenderPartial("umbHomepageDifferentiators"); }
+
+@{ Html.RenderPartial("umbHomepageTitle"); }
+
+<section class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 embed-responsive embed-responsive-16by9">
+            <h2>Saúde oral</h2>
+            <iframe width="853" height="480" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 embed-responsive-item" src="//www.youtube.com/embed/kFqvQaI9CXY?list=PLA312498A6F6F36BA" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
+
+
+@Umbraco.RenderMacro("FeaturedItemsDescription")
+
+@{ Html.RenderPartial("umbHomepageSeeMore"); }

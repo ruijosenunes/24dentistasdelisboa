@@ -1,0 +1,97 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "umbLayout.cshtml";
+
+    // Model.Content is the current page that we're on
+    // AncestorsOrSelf is all of the ancestors this page has in the tree
+    // (1) means: go up to level 1 and stop looking for more ancestors when you get there
+    // First() gets the first ancestor found (the home page, on level 1)
+    var homePage = CurrentPage.AncestorsOrSelf(1).First();
+
+    // The menu items we want are all of the children of the homepage
+    // We also check if "Hide in navigation" is on in the menu, we shouldn't show hidden items
+    var doctorProfiles = CurrentPage.Children();
+}
+
+<section class="container">
+
+    <header class="row">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">
+				@Umbraco.Field("aboutTitle")
+                <small>@Umbraco.Field("smallTitleAboutPage")</small>
+            </h1>
+			@Umbraco.RenderMacro("Breadcrumb")
+        </div>
+
+    </header>
+
+    <section class="row">
+
+        <div class="col-md-6">
+            <img class="img-responsive" alt="@Umbraco.Field("imageAboutPageAltDesc")" src="@Umbraco.Field("imageAboutPage")">
+        </div>
+        <article class="col-md-6">
+            <h2>@Umbraco.Field("descriptionTitle")</h2>
+            <p>@Umbraco.Field("aboutPageDescription")</p>
+        </article>
+
+    </section>
+
+    <!-- Team Member Profiles -->
+
+    <section class="row">
+
+        <div class="col-lg-12">
+            <h2 class="page-header">@Umbraco.Field("titleOurTeam")</h2>
+        </div>
+
+        @foreach (var doctorProfile in doctorProfiles)
+        {
+         <article class="col-sm-4">
+             <img class="img-responsive" alt="@doctorProfile.imageAltDesc" src="@doctorProfile.image">
+            <h3>
+                @doctorProfile.GetPropertyValue("doctorName")
+                <small>@doctorProfile.GetPropertyValue("jobTitle")</small>
+            </h3>
+            <p>@doctorProfile.GetPropertyValue("shortDescription")</p>
+
+            <ul class="list-unstyled list-inline list-social-icons">
+
+                @if (doctorProfile.HasValue("facebookLink"))
+                {
+                 <li class="tooltip-social facebook-link">
+                     <a href="@doctorProfile.GetPropertyValue("facebookLink")" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a>
+                 </li>
+                }
+
+                @if (doctorProfile.HasValue("likedinLink"))
+                {
+                    <li class="tooltip-social linkedin-link">
+                        <a href="@doctorProfile.GetPropertyValue("likedinLink")" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa fa-linkedin-square fa-2x"></i></a>
+                    </li>
+                }
+                                
+                @if (doctorProfile.HasValue("twitterlink"))
+                {
+                    <li class="tooltip-social twitter-link">
+                        <a href="@doctorProfile.GetPropertyValue("twitterlink")" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter-square fa-2x"></i></a>
+                    </li>                    
+                }
+
+                @if (doctorProfile.HasValue("googlePlusLink"))
+                {
+                    <li class="tooltip-social google-plus-link">
+                        <a href="@doctorProfile.GetPropertyValue("googlePlusLink")" data-toggle="tooltip" data-placement="top" title="Google+"><i class="fa fa-google-plus-square fa-2x"></i></a>
+                    </li>
+                }
+                
+            </ul>
+        </article>
+            
+        }
+  
+    </section>
+</section>
+<!-- /.container -->

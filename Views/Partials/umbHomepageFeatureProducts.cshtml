@@ -1,0 +1,77 @@
+﻿@using umbraco.MacroEngines.Library;
+@inherits UmbracoTemplatePage
+@{
+    // Model.Content is the current page that we're on
+    // AncestorsOrSelf is all of the ancestors this page has in the tree
+    // (1) means: go up to level 1 and stop looking for more ancestors when you get there
+    // First() gets the first ancestor found (the home page, on level 1)
+    var homePage = CurrentPage.AncestorsOrSelf(1).First();
+
+    var featuredPages = @Model.Content.DescendantsOrSelf().Where("featuredPage");    
+     <!-- Features -->
+
+    var count = 0;
+ }
+    
+    @foreach (var item in featuredPages)
+    {
+        count += 1;
+        
+        if (count % 2 == 0)
+        {
+         <div class="section-colored">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <h2>@item.Name</h2>
+                        <div class="truncateDescription fadeTruncate">
+                            @item.GetPropertyValue("bodyText")
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <img class="img-responsive" alt="@Umbraco.Field("item.imageAltDesc")" src="@Umbraco.Field("item.image")">
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container -->
+
+        </div>
+        <!-- /.section-colored -->
+            
+        }
+
+        else {
+         
+            <div class="section">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <img class="img-responsive" alt="@Umbraco.Field("item.imageAltDesc")" src="@Umbraco.Field("item.image")">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <h2>@item.Name</h2>
+                        <div class="truncateDescription fadeTruncate">
+                            @item.GetPropertyValue("bodyText")
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container -->
+
+        </div>
+        <!-- /.section -->
+            
+        }
+
+    }       
+
+
+

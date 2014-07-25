@@ -1,0 +1,88 @@
+﻿@inherits UmbracoTemplatePage
+
+<!-- Footer -->
+<footer class="section-colored">
+    <div class="container">
+        <section class="row">
+            <div class="col-sm-3">
+                @{ Html.RenderPartial("umbSocial"); }
+            </div>
+        </section>
+        <section class="row">
+            <div class="col-sm-3">
+                <h4>site map</h4>
+            </div>
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-3">
+                <h4>Ligações úteis</h4>
+            </div>
+            <div class="col-sm-3">
+                <h4>Localização e contacto</h4>
+            </div>
+        </section>
+        <section class="row">
+            @{
+              var footerItems = Model.Content.AncestorsOrSelf(1).First().DescendantsOrSelf().Where("hideInFooter == false");
+              var count = 0;
+              var numberOfItemsPerColumn = 6;
+            }
+                @foreach (var item in footerItems)
+                {
+                    count++;
+
+                        if (count == (2 * numberOfItemsPerColumn)) { break; }
+
+                        if (count == 1 || count == (numberOfItemsPerColumn +1))
+                        {
+                            
+                            if (count == (numberOfItemsPerColumn + 1)) 
+                            
+                            { 
+                                @Html.Raw("</ul>");
+                                @Html.Raw("</div>"); 
+                            }
+
+                            @Html.Raw("<div class=\"col-sm-3\">")
+                            @Html.Raw("<ul class=\"list-unstyled\">")
+                        }
+                        @Html.Raw("<li>");
+                        @Html.Raw("<a class=\"footer-links\" href=\" " + item.Url + "\">" + item.Name + "</a>");
+                        @Html.Raw("</li>");
+                    }
+
+                @Html.Raw("</ul>")
+            @Html.Raw("</div>")
+
+            <div class="col-sm-3">
+                <ul class="list-unstyled">
+                    <li><a class="footer-links" href="http://www.omd.pt/">Ordem dos médicos dentistas</a></li>
+                    <li><a class="footer-links" href="https://www.saudeoral.min-saude.pt/pnpso/public/index.jsp">Programa cheque dentista</a></li>
+                    <li><a class="footer-links" href="http://www.colgate.pt/app/CP/PT/OC/Information/Articles/Oral-and-Dental-Health-Basics/Oral-Hygiene/Oral-Hygiene-Basics.cvsp">Higiene Oral - Colgate</a></li>
+                    <li><a class="footer-links" href="http://www.colgate.pt/app/CP/PT/OC/Information/Articles/Oral-and-Dental-Health-Basics/Checkups-and-Dental-Procedures/Dentures-and-Dental-Implants.cvsp">Próteses dentárias e implantes dentários - Colgate</a></li>
+                    <li><a class="footer-links" href="http://www.nobelsmile.pt/pt_pt/upgrading-dentures/facts-about-all-ceramics/default.aspx">Coroas cerâmicas - NobelSmile</a></li>
+                    <li><a class="footer-links" href="http://www.colgate.pt/app/CP/PT/OC/Information/Articles/Cosmetic-Dentistry/Orthodontics.cvsp">Ortodontia - Colgate</a></li>
+                    <li><a class="footer-links" href="http://www.dgs.pt/">Direção-geral de saúde</a></li>
+                </ul>
+           </div>
+
+            <div class="col-sm-3">
+                <address>
+                    <strong>Twitter, Inc.</strong><br>
+                    795 Folsom Ave, Suite 600<br>
+                    San Francisco, CA 94107<br>
+                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
+            </div>
+        </section>
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="text-center">&copy; @DateTime.Now.Year @Umbraco.Field("copyright", recursive: true)</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<!-- />Footer -->
